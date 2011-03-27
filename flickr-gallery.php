@@ -94,11 +94,11 @@ class DC_FlickrGallery {
 			//wp_enqueue_script('jquery-ui-tabs');			
 			wp_enqueue_script('jquery-lightbox', DC_FlickrGallery::getURL() . 'lightbox/jquery.lightbox.js', array(), CM_FLICKR_GALLERY_VERSION);			
 			wp_enqueue_style('flickr-gallery', DC_FlickrGallery::getURL() . 'flickr-gallery.css', array(), CM_FLICKR_GALLERY_VERSION, 'all');			
-			if ( DC_FlickrGallery::get_major_version() >= 2.8 ) {
+			/*if ( DC_FlickrGallery::get_major_version() >= 2.8 ) {
 				wp_enqueue_style('fg-jquery-ui', DC_FlickrGallery::getURL() . 'tab-theme/jquery-ui-1.7.3.css', array(), '1.7.3', 'all');			
 			} else {
 				wp_enqueue_style('fg-jquery-ui', DC_FlickrGallery::getURL() . 'tab-theme/jquery-ui-1.5.2.css', array(), '1.5.2', 'all');
-			}
+			}*/
 			wp_enqueue_style('jquery-lightbox', DC_FlickrGallery::getURL() . 'lightbox/jquery.lightbox.css', array(), CM_FLICKR_GALLERY_VERSION, 'all');			
 		}
 		
