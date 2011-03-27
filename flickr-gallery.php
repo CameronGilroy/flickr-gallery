@@ -983,7 +983,7 @@ class DC_FlickrGallery {
 			$html = str_replace(array("\n", "\r"), '', ob_get_clean());
 		} else {
 			foreach ( $pager->get($_POST['page']) as $key => $photo ) : 
-				$html .= '<div class="flickr-thumb"><a href="http://flickr.com/photo.gne?id=' . $photo['id'] . '"><img class="' . $photo['media'] . '" title="' . str_replace("\"", "\\\"", $photo['title']) . '" src="' . $phpFlickr->buildPhotoURL($photo, 'square') .'" alt="' .  str_replace("\"", "\\\"", $photo['title']) .'" /></a></div>';
+				$html .= '<div class="flickr-thumb"><a href="http://flickr.com/photo.gne?id=' . $phpFlickr->buildPhotoURL($photo, 'square') . '"><img class="' . $photo['media'] . '" title="' . str_replace("\"", "\\\"", $photo['title']) . '" src="' . $phpFlickr->buildPhotoURL($photo, 'square') .'" alt="' .  str_replace("\"", "\\\"", $photo['title']) .'" /></a></div>';
 			endforeach;
 		}
 		$html .= '<div class="fg-clear"></div>';
