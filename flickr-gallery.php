@@ -1006,7 +1006,7 @@ class DC_FlickrGallery {
 			<div class="flickr-photos">
 				<?php foreach ( $pager->get($page) as $key => $photo ) : ?>
 					<div class="flickr-thumb">
-						<a href="http://flickr.com/photo.gne?id=<?php echo $photo['id'] ?>"><img class="<?php echo $photo['media'] ?>" title="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" alt="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" src="<?php echo $phpFlickr->buildPhotoURL($photo, 'square') ?>" /></a>
+						<a href="<?php echo $phpFlickr->buildPhotoURL($photo, 'square') ?>"><img class="<?php echo $photo['media'] ?>" title="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" alt="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" src="<?php echo $phpFlickr->buildPhotoURL($photo, 'square') ?>" /></a>
 					</div>
 				<?php endforeach ?>
 				<div class="fg-clear"></div>
