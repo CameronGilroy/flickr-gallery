@@ -682,7 +682,7 @@ class DC_FlickrGallery {
 					<?php
 				} else {
 					?>
-						<div class="flickr-gallery image <?php echo $attr['float'] ?>"><a href="<?php echo $url . $photo['id'] ?>"><img class="flickr <?php echo $attr['size'] ?>" title="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" alt="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" src="<?php echo $phpFlickr->buildPhotoURL($photo, $attr['size']) ?>" /></a></div>
+						<div class="flickr-gallery image <?php echo $attr['float'] ?>"><a href="<?php echo $url . $photo['id'] . "@test" ?>"><img class="flickr <?php echo $attr['size'] ?>" title="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" alt="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" src="<?php echo $phpFlickr->buildPhotoURL($photo, $attr['size']) ?>" /></a></div>
 					<?php
 				}
 				return ob_get_clean();
