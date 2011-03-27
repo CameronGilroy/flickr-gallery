@@ -92,14 +92,14 @@ class DC_FlickrGallery {
 				$phpFlickr->enableCache('custom', array(array('DC_FlickrGallery', 'cache_get'), array('DC_FlickrGallery', 'cache_set')));
 			}
 			wp_enqueue_script('jquery-ui-tabs');			
-			wp_enqueue_script('jquery-flightbox', DC_FlickrGallery::getURL() . 'flightbox/jquery.flightbox.js', array(), CM_FLICKR_GALLERY_VERSION);			
+			wp_enqueue_script('jquery-lightbox', DC_FlickrGallery::getURL() . 'lightbox/jquery.lightbox.js', array(), CM_FLICKR_GALLERY_VERSION);			
 			wp_enqueue_style('flickr-gallery', DC_FlickrGallery::getURL() . 'flickr-gallery.css', array(), CM_FLICKR_GALLERY_VERSION, 'all');			
 			if ( DC_FlickrGallery::get_major_version() >= 2.8 ) {
 				wp_enqueue_style('fg-jquery-ui', DC_FlickrGallery::getURL() . 'tab-theme/jquery-ui-1.7.3.css', array(), '1.7.3', 'all');			
 			} else {
 				wp_enqueue_style('fg-jquery-ui', DC_FlickrGallery::getURL() . 'tab-theme/jquery-ui-1.5.2.css', array(), '1.5.2', 'all');
 			}
-			wp_enqueue_style('jquery-flightbox', DC_FlickrGallery::getURL() . 'flightbox/jquery.flightbox.css', array(), CM_FLICKR_GALLERY_VERSION, 'all');			
+			wp_enqueue_style('jquery-lightbox', DC_FlickrGallery::getURL() . 'lightbox/jquery.lightbox.css', array(), CM_FLICKR_GALLERY_VERSION, 'all');			
 		}
 		
 		if ( $_GET['action'] == 'flickr-gallery-photoset' ) {
@@ -114,7 +114,7 @@ class DC_FlickrGallery {
 			wp_enqueue_script('jquery-form');
 		}
 		
-		if ( !is_admin() && (get_option('fg-flightbox') === false || get_option('fg-flightbox')) ) {
+		if ( !is_admin() && (get_option('fg-lightbox') === false || get_option('fg-lightbox')) ) {
 			add_action('wp_head', array('DC_FlickrGallery', 'header'));
 			add_action('wp_footer', array('DC_FlickrGallery', 'footer'));
 		}
@@ -296,7 +296,7 @@ class DC_FlickrGallery {
 															flickr_gallery_photostream_page--;
 														}
 														$("#photostream .flickr-thumb").css("visibility", "hidden");
-														//$("#photostream").css("background", "transparent url(<?php echo DC_FlickrGallery::getURL() ?>flightbox/images/loading-2.gif) scroll no-repeat center center");
+														//$("#photostream").css("background", "transparent url(<?php echo DC_FlickrGallery::getURL() ?>lightbox/images/loading-2.gif) scroll no-repeat center center");
 														$.post("<?php echo get_bloginfo('wpurl') ?>", {
 															action: 'flickr-gallery-page',
 															pager: "<?php echo str_replace('"', '\\"', serialize($pager)) ?>",
@@ -305,8 +305,8 @@ class DC_FlickrGallery {
 															//console.log(rsp);
 															//$("#photostream").css("background-image", "none");
 															$("#photostream .flickr-photos").html(rsp.html);
-															<?php if ( get_option('fg-flightbox') === false || get_option('fg-flightbox') ) : ?>
-																$("#photostream .flickr-thumb img").flightbox({size_callback: get_sizes});
+															<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
+																$("#photostream .flickr-thumb img").lightbox({size_callback: get_sizes});
 															<?php endif; ?>
 															if ( rsp.page == 1 ) {
 																$("#photostream-prev").hide();
@@ -358,8 +358,8 @@ class DC_FlickrGallery {
 													function flickr_gallery_load_photoset($display, id, page) {
 														$display.find(".flickr-thumb").css("visibility", "hidden");
 														$display.load("<?php echo trailingslashit(get_bloginfo('wpurl')) ?>?action=flickr-gallery-photoset&pagination=<?php echo $attr['pagination'] ?>&page=" + page + "&id=" + id, null, function(){
-															<?php if ( get_option('fg-flightbox') === false || get_option('fg-flightbox') ) : ?>
-																$display.find(".flickr-thumb img").flightbox({size_callback: get_sizes});
+															<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
+																$display.find(".flickr-thumb img").lightbox({size_callback: get_sizes});
 															<?php endif; ?>
 															$display.find(".flickr-gallery-next a, .flickr-gallery-prev a").click(function(e){
 																if ( $(e.target).parent().is(".flickr-gallery-next") ) {
@@ -422,8 +422,8 @@ class DC_FlickrGallery {
 													function flickr_gallery_load_photoset($display, id, page) {
 														$display.find(".flickr-thumb").css("visibility", "hidden");
 														$display.load("<?php echo trailingslashit(get_bloginfo('wpurl')) ?>?action=flickr-gallery-photoset&pagination=<?php echo $attr['pagination'] ?>&page=" + page + "&id=" + id, null, function(){
-															<?php if ( get_option('fg-flightbox') === false || get_option('fg-flightbox') ) : ?>
-																$display.find(".flickr-thumb img").flightbox({size_callback: get_sizes});
+															<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
+																$display.find(".flickr-thumb img").lightbox({size_callback: get_sizes});
 															<?php endif; ?>
 															$display.find(".flickr-gallery-next a, .flickr-gallery-prev a").click(function(e){
 																if ( $(e.target).parent().is(".flickr-gallery-next") ) {
@@ -488,7 +488,7 @@ class DC_FlickrGallery {
 															flickr_gallery_interesting_page--;
 														}
 														$("#interesting .flickr-thumb").css("visibility", "hidden");
-														//$("#interesting").css("background", "transparent url(<?php echo DC_FlickrGallery::getURL() ?>flightbox/images/loading-2.gif) scroll no-repeat center center");
+														//$("#interesting").css("background", "transparent url(<?php echo DC_FlickrGallery::getURL() ?>lightbox/images/loading-2.gif) scroll no-repeat center center");
 														$.post("<?php echo $_SERVER['REQUEST_URI'] ?>", {
 															action: 'flickr-gallery-page',
 															pager: "<?php echo str_replace('"', '\\"', serialize($pager)) ?>",
@@ -496,8 +496,8 @@ class DC_FlickrGallery {
 														}, function(rsp){
 															//$("#interesting").css("background-image", "none");
 															$("#interesting .flickr-photos").html(rsp.html);
-															<?php if ( get_option('fg-flightbox') === false || get_option('fg-flightbox') ) : ?>
-																$("#interesting .flickr-thumb img").flightbox({size_callback: get_sizes});
+															<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
+																$("#interesting .flickr-thumb img").lightbox({size_callback: get_sizes});
 															<?php endif; ?>
 															if ( rsp.page == 1 ) {
 																$("#interesting-prev").hide();
@@ -536,8 +536,8 @@ class DC_FlickrGallery {
 										jQuery("#gallery").tabs();
 									<?php endif; ?>
 									jQuery('#sets .flickr-set:not(:first)').css({borderTop:"1px solid #D3D3D3", paddingTop: ".5em"});
-									<?php if ( get_option('fg-flightbox') === false || get_option('fg-flightbox') ) : ?>
-										jQuery("#gallery .flickr-thumb img").flightbox({size_callback: get_sizes});
+									<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
+										jQuery("#gallery .flickr-thumb img").lightbox({size_callback: get_sizes});
 									<?php endif; ?>
 								});
 							</script>
@@ -580,9 +580,9 @@ class DC_FlickrGallery {
 			<?php
 			?>
 				<script type="text/javascript">
-					<?php if ( get_option('fg-flightbox') === false || get_option('fg-flightbox') ) : ?>
+					<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
 						jQuery(document).ready(function(){
-							jQuery("#gallery .flickr-thumb img").flightbox({size_callback: get_sizes});
+							jQuery("#gallery .flickr-thumb img").lightbox({size_callback: get_sizes});
 						});
 					<?php endif; ?>
 					
@@ -597,15 +597,15 @@ class DC_FlickrGallery {
 										flickr_gallery_<?php echo $id ?>_page--;
 									}
 									$("#gallery .flickr-thumb").css("visibility", "hidden");
-									//$("#gallery").css("background", "transparent url(<?php echo DC_FlickrGallery::getURL() ?>flightbox/images/loading-2.gif) scroll no-repeat center center");
+									//$("#gallery").css("background", "transparent url(<?php echo DC_FlickrGallery::getURL() ?>lightbox/images/loading-2.gif) scroll no-repeat center center");
 									$.post("<?php echo $_SERVER['REQUEST_URI'] ?>", {
 										action: 'flickr-gallery-page',
 										pager: "<?php echo str_replace('"', '\\"', serialize($pager)) ?>",
 										page: flickr_gallery_<?php echo $id ?>_page
 									}, function(rsp){
 										$("#gallery").html(rsp.html);
-										<?php if ( get_option('fg-flightbox') === false || get_option('fg-flightbox') ) : ?>
-											$("#gallery .flickr-thumb img").flightbox({size_callback: get_sizes});
+										<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
+											$("#gallery .flickr-thumb img").lightbox({size_callback: get_sizes});
 										<?php endif; ?>
 										if ( rsp.page == 1 ) {
 											$("#fg-prev").hide();
@@ -792,7 +792,7 @@ class DC_FlickrGallery {
 				<form method="post" action="admin-ajax.php" id="flickr-gallery-settings">
 					<input type="hidden" name="action" value="flickr_gallery_settings" />
 					<?php wp_nonce_field('flickr-gallery'); ?>
-					<input type="hidden" name="page_options" value="fg-tabs,fg-API-key,fg-secret,fg-token,fg-user_id,fg-per_page,fg-db-cache,fg-credit-link,fg-flightbox,fg-flightbox-large,fg-flightbox-description" />
+					<input type="hidden" name="page_options" value="fg-tabs,fg-API-key,fg-secret,fg-token,fg-user_id,fg-per_page,fg-db-cache,fg-credit-link,fg-lightbox,fg-lightbox-large,fg-lightbox-description" />
 					<p>
 						<?php _e('Flickr <a href="http://www.flickr.com/services/api/keys/">API Key</a>:', 'flickr-gallery') ?>
 						<input type="text" name="fg-API-key" value="<?php echo get_option('fg-API-key'); ?>" />
@@ -824,14 +824,14 @@ class DC_FlickrGallery {
 						<input type="text" name="fg-per_page" value="<?php echo get_option('fg-per_page') ? get_option('fg-per_page') : 30; ?>" />
 					</p>
 					<p>
-						<label for="fg-flightbox"><?php _e('Use a lightbox to display your photos:', 'flickr-gallery') ?></label>
-						<input id="fg-flightbox" type="checkbox" value="1" name="fg-flightbox" <?php echo ( get_option('fg-flightbox') === false || get_option('fg-flightbox') ) ? 'checked="checked"' : '' ?> />
+						<label for="fg-lightbox"><?php _e('Use a lightbox to display your photos:', 'flickr-gallery') ?></label>
+						<input id="fg-lightbox" type="checkbox" value="1" name="fg-lightbox" <?php echo ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) ? 'checked="checked"' : '' ?> />
 					</p>
 					<p>
-						<label for="fg-flightbox-large"><?php _e('Display the largest photo that will fit in the user\'s window in the lightbox (slows it down slightly):', 'flickr-gallery') ?></label>
-						<input id="fg-flightbox-large" type="checkbox" value="1" name="fg-flightbox-large" <?php echo ( get_option('fg-flightbox-large') ) ? 'checked="checked"' : '' ?> /><br />
-						<label for="fg-flightbox-description"><?php _e('Display the photo\'s description in the lightbox:', 'flickr-gallery') ?></label>
-						<input id="fg-flightbox-description" type="checkbox" value="1" name="fg-flightbox-description" <?php echo ( get_option('fg-flightbox-description') ) ? 'checked="checked"' : '' ?> /><br />
+						<label for="fg-lightbox-large"><?php _e('Display the largest photo that will fit in the user\'s window in the lightbox (slows it down slightly):', 'flickr-gallery') ?></label>
+						<input id="fg-lightbox-large" type="checkbox" value="1" name="fg-lightbox-large" <?php echo ( get_option('fg-lightbox-large') ) ? 'checked="checked"' : '' ?> /><br />
+						<label for="fg-lightbox-description"><?php _e('Display the photo\'s description in the lightbox:', 'flickr-gallery') ?></label>
+						<input id="fg-lightbox-description" type="checkbox" value="1" name="fg-lightbox-description" <?php echo ( get_option('fg-lightbox-description') ) ? 'checked="checked"' : '' ?> /><br />
 					</p>
 					<p>
 						Tabs to display for the default [flickr-gallery] shortcode:
@@ -1029,7 +1029,7 @@ class DC_FlickrGallery {
 	
 	function ajax_sizes() {
 		global $phpFlickr;
-		if ( get_option('fg-flightbox-description') ) {
+		if ( get_option('fg-lightbox-description') ) {
 			$result = $phpFlickr->photos_getInfo($_POST['id']);
 			$description = nl2br($result['description']);
 		} else {
@@ -1044,7 +1044,7 @@ class DC_FlickrGallery {
 		?>
 			<script type="text/javascript">
 				var get_sizes = null;
-				<?php if ( get_option('fg-flightbox-large') ) : ?>
+				<?php if ( get_option('fg-lightbox-large') ) : ?>
 					(function($){
 						get_sizes = function(id){
 							var sizes;
@@ -1074,7 +1074,7 @@ class DC_FlickrGallery {
 			<script type="text/javascript">
 				(function($){
 					$(function(){
-						$("img.flickr.square,img.flickr.thumbnail,img.flickr.small").flightbox({size_callback: get_sizes});
+						$("img.flickr.square,img.flickr.thumbnail,img.flickr.small").lightbox({size_callback: get_sizes});
 					});
 				})(jQuery);
 			</script>
