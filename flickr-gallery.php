@@ -252,7 +252,7 @@ class DC_FlickrGallery {
 						));
 						$tab_count = 0;
 						?>
-							<div id="gallery-<?php echo $id ?>" class="flickr-gallery <?php if ( $mv ) echo 'ui-tabs ui-widget ui-widget-content ui-corner-all' ?>">
+							<div id="gallery" class="flickr-gallery <?php if ( $mv ) echo 'ui-tabs ui-widget ui-widget-content ui-corner-all' ?>">
 								<<?php echo $mv ? 'ul' : 'ol' ?> class="<?php if ( $mv ) echo 'ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all' ?>">
 									<?php foreach ( $tabs as $tab ) : ?>
 										<li class="ui-state-default ui-corner-top <?php if ( $tab_count++ == 0 ) echo 'ui-tabs-selected ui-state-active' ?>"><a href="#<?php echo $tab['id'] ?>"><?php echo $tab['name'] ?></a></li>
@@ -531,13 +531,13 @@ class DC_FlickrGallery {
 							<script type="text/javascript">
 								jQuery(document).ready(function(){
 									<?php if ( DC_FlickrGallery::get_major_version() < 2.8 ) : ?>
-										jQuery("#gallery-<?php echo $id ?> > ol").tabs();
+										jQuery("#gallery > ol").tabs();
 									<?php else : ?>
-										jQuery("#gallery-<?php echo $id ?>").tabs();
+										jQuery("#gallery").tabs();
 									<?php endif; ?>
 									jQuery('#sets .flickr-set:not(:first)').css({borderTop:"1px solid #D3D3D3", paddingTop: ".5em"});
 									<?php if ( get_option('fg-flightbox') === false || get_option('fg-flightbox') ) : ?>
-										jQuery("#gallery-<?php echo $id ?> .flickr-thumb img").flightbox({size_callback: get_sizes});
+										jQuery("#gallery .flickr-thumb img").flightbox({size_callback: get_sizes});
 									<?php endif; ?>
 								});
 							</script>
@@ -551,7 +551,7 @@ class DC_FlickrGallery {
 
 			$url = DC_FlickrGallery::get_photo_url();
 			?>
-				<div id="gallery-<?php echo $id ?>" class="flickr-gallery <?php echo $attr['mode'] ?>">
+				<div id="gallery" class="flickr-gallery <?php echo $attr['mode'] ?>">
 					<?php 
 						if ( isset($attr['fg_filter']) ) {
 							$pager->_extra = 'flickr_gallery_filter_' . $attr['fg_filter'];
@@ -568,9 +568,9 @@ class DC_FlickrGallery {
 					<div class="fg-clear"></div>
 				</div>
 				<?php if ( $attr['pagination'] && $pager->pages > 1 ) : ?>
-					<div class="fg-clear" id="fg-<?php echo $id ?>-nav">
-						<div id="fg-<?php echo $id ?>-next" class="flickr-gallery-next" style="float: right"><a href="#"><?php _e('Next Page &rsaquo;', 'flickr-gallery') ?></a></div>
-						<div id="fg-<?php echo $id ?>-prev" class="flickr-gallery-prev" style="display: none; float: left"><a href="#"><?php _e('&lsaquo; Previous Page', 'flickr-gallery') ?></a></div>
+					<div class="fg-clear" id="fg-nav">
+						<div id="fg-next" class="flickr-gallery-next" style="float: right"><a href="#"><?php _e('Next Page &rsaquo;', 'flickr-gallery') ?></a></div>
+						<div id="fg-prev" class="flickr-gallery-prev" style="display: none; float: left"><a href="#"><?php _e('&lsaquo; Previous Page', 'flickr-gallery') ?></a></div>
 					</div>
 				<?php endif; ?>
 				<?php if ( $pager->total > 0 && get_option('fg-credit-link') ) : ?>
@@ -582,7 +582,7 @@ class DC_FlickrGallery {
 				<script type="text/javascript">
 					<?php if ( get_option('fg-flightbox') === false || get_option('fg-flightbox') ) : ?>
 						jQuery(document).ready(function(){
-							jQuery("#gallery-<?php echo $id ?> .flickr-thumb img").flightbox({size_callback: get_sizes});
+							jQuery("#gallery .flickr-thumb img").flightbox({size_callback: get_sizes});
 						});
 					<?php endif; ?>
 					
@@ -590,32 +590,32 @@ class DC_FlickrGallery {
 						var flickr_gallery_<?php echo $id ?>_page = 1;
 						(function($){
 							$(document).ready(function(){
-								$("#fg-<?php echo $id ?>-next a, #fg-<?php echo $id ?>-prev a").click(function(e){
-									if ( $(e.target).parent().is("#fg-<?php echo $id ?>-next") ) {
+								$("#fg-next a, #fg-prev a").click(function(e){
+									if ( $(e.target).parent().is("#fg-next") ) {
 										flickr_gallery_<?php echo $id ?>_page++;
 									} else {
 										flickr_gallery_<?php echo $id ?>_page--;
 									}
-									$("#gallery-<?php echo $id ?> .flickr-thumb").css("visibility", "hidden");
-									//$("#gallery-<?php echo $id ?>").css("background", "transparent url(<?php echo DC_FlickrGallery::getURL() ?>flightbox/images/loading-2.gif) scroll no-repeat center center");
+									$("#gallery .flickr-thumb").css("visibility", "hidden");
+									//$("#gallery").css("background", "transparent url(<?php echo DC_FlickrGallery::getURL() ?>flightbox/images/loading-2.gif) scroll no-repeat center center");
 									$.post("<?php echo $_SERVER['REQUEST_URI'] ?>", {
 										action: 'flickr-gallery-page',
 										pager: "<?php echo str_replace('"', '\\"', serialize($pager)) ?>",
 										page: flickr_gallery_<?php echo $id ?>_page
 									}, function(rsp){
-										$("#gallery-<?php echo $id ?>").html(rsp.html);
+										$("#gallery").html(rsp.html);
 										<?php if ( get_option('fg-flightbox') === false || get_option('fg-flightbox') ) : ?>
-											$("#gallery-<?php echo $id ?> .flickr-thumb img").flightbox({size_callback: get_sizes});
+											$("#gallery .flickr-thumb img").flightbox({size_callback: get_sizes});
 										<?php endif; ?>
 										if ( rsp.page == 1 ) {
-											$("#fg-<?php echo $id ?>-prev").hide();
+											$("#fg-prev").hide();
 										} else {
-											$("#fg-<?php echo $id ?>-prev").show();
+											$("#fg-prev").show();
 										}
 										if ( rsp.page == rsp.pages ) {
-											$("#fg-<?php echo $id ?>-next").hide();
+											$("#fg-next").hide();
 										} else {
-											$("#fg-<?php echo $id ?>-next").show();
+											$("#fg-next").show();
 										}
 									}, 'json');
 									return false;
@@ -1015,10 +1015,10 @@ class DC_FlickrGallery {
 			<?php if ( $_GET['pagination'] && $pager->pages > 1 ) : ?>
 				<div class="clear">
 					<?php if ( $page != $pager->pages ) : ?>
-						<div id="photoset-<?php echo $id ?>-<?php echo $page + 1 ?>" class="flickr-gallery-next" style="float: right"><a href="#"><?php _e('Next Page &rsaquo;', 'flickr-gallery') ?></a></div>
+						<div id="photoset-<?php echo $page + 1 ?>" class="flickr-gallery-next" style="float: right"><a href="#"><?php _e('Next Page &rsaquo;', 'flickr-gallery') ?></a></div>
 					<?php endif; ?>
 					<?php if ( $page != 1 ) : ?>
-						<div id="photoset-<?php echo $id ?>-<?php echo $page - 1 ?>" class="flickr-gallery-prev" style="float: left"><a href="#"><?php _e('&lsaquo; Previous Page', 'flickr-gallery') ?></a></div>
+						<div id="photoset-<?php echo $page - 1 ?>" class="flickr-gallery-prev" style="float: left"><a href="#"><?php _e('&lsaquo; Previous Page', 'flickr-gallery') ?></a></div>
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
