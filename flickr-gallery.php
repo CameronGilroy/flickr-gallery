@@ -585,44 +585,6 @@ class DC_FlickrGallery {
 							jQuery('#gallery a').lightBox();
 						});
 					<?php endif; ?>
-					
-					<?php if ( $attr['pagination'] && $pager->pages > 1 ) : ?>
-						var flickr_gallery_<?php echo $id ?>_page = 1;
-						(function($){
-							$(document).ready(function(){
-								$("#fg-next a, #fg-prev a").click(function(e){
-									if ( $(e.target).parent().is("#fg-next") ) {
-										flickr_gallery_<?php echo $id ?>_page++;
-									} else {
-										flickr_gallery_<?php echo $id ?>_page--;
-									}
-									$("#gallery .flickr-thumb").css("visibility", "hidden");
-									//$("#gallery").css("background", "transparent url(<?php echo DC_FlickrGallery::getURL() ?>lightbox/images/loading-2.gif) scroll no-repeat center center");
-									$.post("<?php echo $_SERVER['REQUEST_URI'] ?>", {
-										action: 'flickr-gallery-page',
-										pager: "<?php echo str_replace('"', '\\"', serialize($pager)) ?>",
-										page: flickr_gallery_<?php echo $id ?>_page
-									}, function(rsp){
-										$("#gallery").html(rsp.html);
-										<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
-											$("#gallery .flickr-thumb img").lightbox({size_callback: get_sizes});
-										<?php endif; ?>
-										if ( rsp.page == 1 ) {
-											$("#fg-prev").hide();
-										} else {
-											$("#fg-prev").show();
-										}
-										if ( rsp.page == rsp.pages ) {
-											$("#fg-next").hide();
-										} else {
-											$("#fg-next").show();
-										}
-									}, 'json');
-									return false;
-								});
-							});
-						})(jQuery);
-					<?php endif ?>
 					//-->
 				</script>
 			<?php
