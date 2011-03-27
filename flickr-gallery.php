@@ -189,7 +189,7 @@ class DC_FlickrGallery {
 			$id = substr(md5(microtime()), 0, 8);
 			global $phpFlickr;
 			$attr = array_merge(array(
-				'pagination' => 1,
+				'pagination' => 0,
 				'photoset' => null,
 				'sort' => null,
 				'tags' => null,
@@ -567,22 +567,12 @@ class DC_FlickrGallery {
 					?>
 					<div class="fg-clear"></div>
 				</div>
-				<?php if ( $attr['pagination'] && $pager->pages > 1 ) : ?>
-					<div class="fg-clear" id="fg-nav">
-						<div id="fg-next" class="flickr-gallery-next" style="float: right"><a href="#"><?php _e('Next Page &rsaquo;', 'flickr-gallery') ?></a></div>
-						<div id="fg-prev" class="flickr-gallery-prev" style="display: none; float: left"><a href="#"><?php _e('&lsaquo; Previous Page', 'flickr-gallery') ?></a></div>
-					</div>
-				<?php endif; ?>
-				<?php if ( $pager->total > 0 && get_option('fg-credit-link') ) : ?>
-					<div class="fg-clear alignright"><?php _e('Powered by <a href="http://co.deme.me/projects/flickr-gallery/">Flickr Gallery</a>', 'flickr-gallery') ?></div>
-				<?php endif; ?>
-				<div class="fg-clear"></div>
 			<?php
 			?>
 				<script type="text/javascript">
 					<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
-						jQuery(document).ready(function(){
-							jQuery('#gallery a').lightBox();
+						$(function() {
+						    $('#gallery a').lightBox();
 						});
 					<?php endif; ?>
 					//-->
