@@ -572,7 +572,7 @@ class DC_FlickrGallery {
 				<script type="text/javascript">
 					<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
 						jQuery(document).ready(function(){
-							jQuery('#gallery a').lightBox();
+							$('#gallery a').lightBox();
 						});
 					<?php endif; ?>
 					//-->
