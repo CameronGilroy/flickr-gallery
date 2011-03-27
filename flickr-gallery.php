@@ -91,7 +91,7 @@ class DC_FlickrGallery {
 			if ( get_option('fg-db-cache') == 1 ) {
 				$phpFlickr->enableCache('custom', array(array('DC_FlickrGallery', 'cache_get'), array('DC_FlickrGallery', 'cache_set')));
 			}
-			wp_enqueue_script('jquery-ui-tabs');			
+			//wp_enqueue_script('jquery-ui-tabs');			
 			wp_enqueue_script('jquery-lightbox', DC_FlickrGallery::getURL() . 'lightbox/jquery.lightbox.js', array(), CM_FLICKR_GALLERY_VERSION);			
 			wp_enqueue_style('flickr-gallery', DC_FlickrGallery::getURL() . 'flickr-gallery.css', array(), CM_FLICKR_GALLERY_VERSION, 'all');			
 			if ( DC_FlickrGallery::get_major_version() >= 2.8 ) {
