@@ -537,7 +537,7 @@ class DC_FlickrGallery {
 									<?php endif; ?>
 									jQuery('#sets .flickr-set:not(:first)').css({borderTop:"1px solid #D3D3D3", paddingTop: ".5em"});
 									<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
-										jQuery("#gallery .flickr-thumb img").lightbox({size_callback: get_sizes});
+										jQuery('#gallery a').lightBox();
 									<?php endif; ?>
 								});
 							</script>
@@ -582,7 +582,7 @@ class DC_FlickrGallery {
 				<script type="text/javascript">
 					<?php if ( get_option('fg-lightbox') === false || get_option('fg-lightbox') ) : ?>
 						jQuery(document).ready(function(){
-							jQuery("#gallery .flickr-thumb img").lightbox({size_callback: get_sizes});
+							jQuery('#gallery a').lightBox();
 						});
 					<?php endif; ?>
 					
