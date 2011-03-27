@@ -560,7 +560,7 @@ class DC_FlickrGallery {
 						} else {
 							foreach ( $pager->get(1) as $key => $photo ) : ?>
 								<div class="flickr-thumb">
-									<a href="<?php echo $phpFlickr->buildPhotoURL($photo, 'medium') ?>"><img class="<?php echo $photo['media'] ?>" title="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" src="<?php echo $phpFlickr->buildPhotoURL($photo, 'square') ?>" alt="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" /></a>
+									<a href="<?php echo $phpFlickr->buildPhotoURL($photo, 'large') ?>"><img class="<?php echo $photo['media'] ?>" title="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" src="<?php echo $phpFlickr->buildPhotoURL($photo, 'square') ?>" alt="<?php echo str_replace("\"", "\\\"", $photo['title']) ?>" /></a>
 								</div>
 							<?php endforeach;
 						}
