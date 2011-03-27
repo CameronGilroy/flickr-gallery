@@ -1023,13 +1023,13 @@ class DC_FlickrGallery {
 	
 	function footer() {
 		?>
-			<script type="text/javascript">
+			<!--script type="text/javascript">
 				(function($){
 					$(function(){
 						$("img.flickr.square,img.flickr.thumbnail,img.flickr.small").lightbox({size_callback: get_sizes});
 					});
 				})(jQuery);
-			</script>
+			</script-->
 		<?php
 	}
 	
